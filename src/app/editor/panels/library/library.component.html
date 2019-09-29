@@ -1,0 +1,13 @@
+<div id="library">
+  <div id="header">
+    <span>Library</span>
+  </div>
+  <div id="component_list" >
+    <app-grid-square *ngFor="let component of componentList; let idx = index;"
+                     (mousedown)="dragStartHandler({id: component.id, icon: component.icon})"
+                     (mouseup)="dragStopHandler({id: component.id, icon: component.icon})"
+                     [id]="component.id"
+                     [data]="component"
+                     ></app-grid-square>
+  </div>
+</div>

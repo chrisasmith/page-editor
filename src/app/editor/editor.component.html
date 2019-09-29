@@ -1,0 +1,91 @@
+<div id="editor">
+  <div id="controls">
+    <div id="icon_btns">
+      <div style="float: left">
+        <button mat-button matTooltip="Dashboard" id="dashboard-btn" (click)="gotoDashboard()">
+          <mat-icon>dashboard</mat-icon>
+        </button>
+      </div>
+      <div class="float-left" role="group">
+        <button mat-button matTooltip="Toggle left column" id="toggle-left-column-btn">
+          <mat-icon>border_left</mat-icon>
+        </button>
+        <button mat-button matTooltip="Toggle right column" id="toggle-right-column-btn" >
+          <mat-icon>border_right</mat-icon>
+        </button>
+        <button mat-button
+                matTooltip="Toggle borders"
+                id="toggle-borders-btn"
+                (click)="setBordersMode()" >
+          <mat-icon>border_all</mat-icon>
+        </button>
+      </div>
+
+      <div class="btn-group mr-3" role="group">
+        <button mat-button matTooltip="Undo (Ctrl/Cmd + Z)" id="undo-btn" disabled>
+          <mat-icon>undo</mat-icon>
+        </button>
+        <button mat-button matTooltip="Redo (Ctrl/Cmd + Shift + Z)" id="redo-btn" disabled>
+          <mat-icon>redo</mat-icon>
+        </button>
+      </div>
+
+      <div class="btn-group mr-3" role="group">
+        <button
+          mat-button
+          matTooltip="Preview"
+          id="preview-btn"
+          (click)="setPreviewMode()"
+          type="button">
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+        <button mat-button matTooltip="Save" id="save-btn" disabled>
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="editor_body"
+       [style.gridTemplateAreas]="isPreviewMode ? 'content' : 'lib content props'"
+       [style.gridTemplateColumns]="isPreviewMode ? '1fr' : '15vw 1fr 15vw'">
+    <div id="library" [style.display]="isPreviewMode ? 'none' : 'flex'">
+      <app-library></app-library>
+    </div>
+    <main id="content"
+         class=""
+         style="height: 100%; padding: 0;"
+         [style.display]="isPreviewMode ? 'none' : 'flex'"
+         (mousemove)="handleMouseMove($event)"
+         (mouseup)="handleMouseUp($event)">
+    </main>
+    <div id="properties"
+         [style.display]="isPreviewMode ? 'none' : 'flex'">
+      <app-property [element]="selectedElement" (propertyUpdated)="updateSelectionBox()"></app-property>
+    </div>
+    <div
+      id="iframe_wrapper"
+      [style.display]="!isPreviewMode ? 'none' : 'flex'">
+      <iframe h-100
+        #iframe
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+        [attr.srcDoc]="srcDocContent | safe: 'html'"
+        id="iframe">
+
+      </iframe>
+    </div>
+  </div>
+
+</div>
+
+
+<app-highlight-box style="z-index: 98;" *ngIf="!isPreviewMode" #highlight [boundBox]="elementInfo"></app-highlight-box>
+<app-select-box style="z-index: 99;" #selectBox [element]="selectedElement"></app-select-box>
+
+<div #iconDrag id="iconDrag"
+     [style.display]="isDragging ? '' : 'none'"
+     style="z-index: 100;
+     position: absolute;">
+  <img [src]="dragIcon">
+</div>
+
+

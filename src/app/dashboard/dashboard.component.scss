@@ -1,0 +1,184 @@
+@import "~src/app/editor/editor-theme";
+:host {
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  #dash {
+    width: 100%;
+    height: 100vh;
+
+    #header {
+      width: 100%;
+      height: 24%;
+      margin-bottom: 10px;
+      padding: 10px;
+
+      display: flex;
+      justify-content: space-between;
+      #info_area {
+        width: 50%;
+        height: 100%;
+        .pages {
+          width: 100%;
+        }
+      }
+    }
+
+    #content {
+      width: 100%;
+      height: 74%;
+
+      display: flex;
+      flex-direction: row;
+
+      #saved_pages, #page_templates {
+        width: 100%;
+        flex: 1;
+        margin-right: 10px;
+      }
+
+      #page_templates {
+        overflow: hidden;
+
+        #template_grid {
+          height: 90%;
+          margin-bottom: 10px;
+          grid-area: templates;
+
+          display: grid;
+          grid-gap: 20px;
+          grid-template-rows: 1fr;
+          grid-template-columns: auto auto auto;
+          padding: 5px 20px;
+
+          overflow: scroll;
+
+          .template-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 0;
+            font-size: 16px;
+            text-align: center;
+            height: 200px;
+            overflow: hidden;
+
+            .slider {
+              display: flex!important;
+              flex-flow: column nowrap;
+              justify-content: space-between;
+              padding: 5px;
+
+              position: relative;
+              top: 100%;
+              height: 100%;
+              width: 100%;
+              background: $greyish-blue;
+              opacity: 0;
+              text-align: center;
+              -webkit-transition: top 0.6s ease-in-out;
+              left: 0;
+
+              color: #f7f7f7;
+              font-weight: 500;
+
+              #slider_controls {
+                button {
+                  background: $dark-violet;
+                  i {
+                    color: $uni-yellow;
+                  }
+                }
+              }
+            }
+            .closed {
+              top: -24px;
+              background: $greyish-blue;
+              opacity: .9;
+              display: block;
+            }
+          }
+        }
+      }
+    }
+
+    .pages {
+      height: 80%;
+    }
+    .templates {
+      height: 80%;
+    }
+    .stacked {
+
+      .stacked-card {
+        margin-top: 20px;
+        height: 100%;
+        .mini {
+          width: 25% !important;
+        }
+        .stacked-card-header {
+          margin-top: -35px;
+          width: 100%;
+
+          padding: 0;
+          margin-bottom: 0;
+          background-color: transparent;
+          border-bottom: 0px solid rgba(0,0,0,0);
+
+          .stacked-card-header-content {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            #controls {
+              button {
+                background-color: $dark-violet;
+                color: $uni-yellow;
+              }
+            }
+          }
+
+          ::ng-deep .mat-card-header-text {
+            display: none;
+            margin: 0;
+          }
+          mat-card {
+            width: 100%;
+            margin: 0 0 10px 0;
+            background-color: $uni-accent-color !important;
+            color: $white;
+          }
+          .card-header {
+
+          }
+        }
+        .stacked-card-body {
+
+        }
+      }
+    }
+
+    .saved-pages-row td {
+      border-bottom-width: 0;
+    }
+
+    tr.saved-pages-row:not(.example-expanded-row):hover {
+      background: $light-blue-grey;
+    }
+
+    tr.saved-pages-row:not(.example-expanded-row):active {
+      background: #efefef;
+    }
+
+    .mat-card:not([class*=mat-elevation-z]) {
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0),
+      0px 1px 1px 0px rgba(0, 0, 0, 0),
+      0px 1px 3px 0px rgba(0, 0, 0, 0);
+    }
+
+    ::ng-deep .mat-card-content {
+      height: 100% !important;
+    }
+    ::ng-deep table.mat-table {
+      width: 100%;
+    }
+  }
+}

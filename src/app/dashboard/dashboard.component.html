@@ -1,0 +1,135 @@
+<div id="dash">
+  <div id="header">
+    <div id="company_logo">
+      <img src="//placehold.it/250x120/dcdcdc/fff/image1.jpg&text=Company Logo">
+    </div>
+    <div id="info_area">
+      <div class="stacked pages">
+        <mat-card class="stacked-card">
+          <mat-card-header class="stacked-card-header mini">
+            <mat-card>
+              <mat-card-title  class=""><i class="material-icons">notifications</i> Notifications</mat-card-title>
+            </mat-card>
+          </mat-card-header>
+          <mat-card-content class="stacked-card-body">
+            <p>Use Company default template.</p>
+            <p>Template <----> should not be altered.</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
+  <div id="content">
+    <div id="saved_pages">
+      <div class="stacked pages">
+        <mat-card class="stacked-card">
+          <mat-card-header class="stacked-card-header">
+            <mat-card>
+              <mat-card-title  class="">Saved Pages</mat-card-title>
+              <mat-card-subtitle class="">Pages created by you or team member.</mat-card-subtitle>
+            </mat-card>
+          </mat-card-header>
+          <mat-card-content class="stacked-card-body">
+            <table mat-table [dataSource]="dataSource">
+
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Page Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="created">
+                <th mat-header-cell *matHeaderCellDef> Created </th>
+                <td mat-cell *matCellDef="let element"> {{element.created}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="createdBy">
+                <th mat-header-cell *matHeaderCellDef> Created By </th>
+                <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef> Edit </th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-flat-button
+                          matTooltip="Edit" matTooltipPosition="left"
+                          (click)="rowAction($event, element)">
+                    <i class="material-icons" style="color: #009900">{{element.edit}}</i>
+                  </button>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="clone">
+                <th mat-header-cell *matHeaderCellDef> Clone </th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-flat-button
+                          matTooltip="Clone" matTooltipPosition="left"
+                          (click)="rowAction($event, element)">
+                    <i class="material-icons" style="color: dodgerblue">{{element.clone}} </i>
+                  </button>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef> Delete </th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-flat-button
+                          matTooltip="Delete" matTooltipPosition="left"
+                          (click)="rowAction($event, element)">
+                    <i class="material-icons" style="color: #ff0000">{{element.delete}}</i>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx = index;"
+                  class="saved-pages-row"
+                  (click)="onRowSelected($event, row, idx)"
+                  [ngClass]="{'row-active': setItemRowState(idx)}"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[10]" [hidePageSize]="true" showFirstLastButtons></mat-paginator>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div id="page_templates">
+      <div class="stacked templates">
+        <mat-card class="stacked-card grid">
+          <mat-card-header class="stacked-card-header">
+            <mat-card class="stacked-card-header-content">
+              <div>
+                <mat-card-title>Starter Templates: ({{pageTemplates.length}})</mat-card-title>
+                <mat-card-subtitle style="margin-bottom:0;">Editable page designs.</mat-card-subtitle>
+              </div>
+              <div id="controls">
+                <button mat-button mat-raised-button (click)="loadEditor()">New Blank Page</button>
+              </div>
+            </mat-card>
+          </mat-card-header>
+          <mat-card-content class="stacked-card-body">
+            <div id="template_grid">
+              <div (mouseenter)="openSlider(idx)" (mouseleave)="openSlider(null)" *ngFor="let temp of pageTemplates; let idx=index;" class="template-item">
+                Page Template: {{idx}}
+                <div class="slider" [class]="idx === selected ? 'slider closed' : 'slider'">
+                  <div>
+                    <span>Template Info</span><br>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
+                  </div>
+                  <div id="slider_controls">
+                    <button
+                      mat-button
+                      mat-raised-button
+                      (click)="loadEditor()">
+                      <i class="material-icons">edit</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+

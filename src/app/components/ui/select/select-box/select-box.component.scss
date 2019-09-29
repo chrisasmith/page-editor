@@ -1,0 +1,16 @@
+@import "~src/app/editor/editor-theme";
+:host{
+  #select_box {
+    pointer-events: none;
+    position: absolute;
+    border: 1px solid $uni-accent-color;
+    display: block;
+
+    app-select-actions {
+      position: absolute;
+      right: -1px;
+      top: -44px;
+    }
+  }
+
+}
