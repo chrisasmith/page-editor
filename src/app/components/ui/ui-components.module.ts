@@ -4,6 +4,7 @@ import {SelectBoxModule} from './select/select-box/select-box.module';
 import {HighlightBoxModule} from './select/highlight-box/highlight-box.module';
 import {GridSquareComponent} from './grid-square/grid-square.component';
 import {MatCardModule} from '@angular/material';
+import {ConfirmModule} from './confirm/confirm.module';
 
 
 
@@ -15,13 +16,16 @@ import {MatCardModule} from '@angular/material';
     CommonModule,
     SelectBoxModule,
     HighlightBoxModule,
+    ConfirmModule,
     MatCardModule
   ],
   exports: [
     SelectBoxModule,
     HighlightBoxModule,
-    GridSquareComponent,
-    MatCardModule
+    MatCardModule,
+    GridSquareComponent
+  ],
+  entryComponents: [
   ]
 })
 export class UiComponentsModule { }
